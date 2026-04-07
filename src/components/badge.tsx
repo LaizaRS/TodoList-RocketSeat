@@ -15,7 +15,7 @@ export const badgeVariants = cva("inline-flex items-center justify-center rounde
   defaultVariants: {
     variant: "primary",
     size: "sm"
-  }
+  }, 
 }) 
 
 export const badgeTextVariants = cva("", {
@@ -23,7 +23,7 @@ export const badgeTextVariants = cva("", {
     variant: {
       primary: "text-green-800",
       secondary: "text-pink-800"
-    }
+    },
   },
   defaultVariants: {
     variant: "primary",

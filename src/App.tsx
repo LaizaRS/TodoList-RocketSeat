@@ -7,6 +7,7 @@ import PencilIcon from "./assets/icons/Pencil.svg?react"
 import XIcon from "./assets/icons/X.svg?react"
 import Icon from "./components/icon"
 import Badge from "./components/badge"
+import Button from "./components/button"
 
 function App() {
 
@@ -36,6 +37,9 @@ function App() {
       <div>
         <Badge variant={"secondary"}>5</Badge>
         <Badge variant={"primary"}>2 de 5</Badge>
+      </div>
+      <div>
+        <Button icon={PlusIcon}> nova tarefa    </Button>
       </div>
     </div>
   
