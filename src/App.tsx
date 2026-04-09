@@ -10,6 +10,7 @@ import Badge from "./components/badge"
 import Button from "./components/button"
 import ButtonIcon from "./components/buttonIcon"
 import InputText from "./components/inputText"
+import InputCheackBox from "./components/inputCheckBox"
 
 function App() {
 
@@ -52,6 +53,10 @@ function App() {
       <div>
         <InputText />
       </div>
+      <div>
+        <InputCheackBox />
+      </div>
+
     </div>
   
   )
