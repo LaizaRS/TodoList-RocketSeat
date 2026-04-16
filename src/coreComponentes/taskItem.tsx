@@ -23,13 +23,16 @@ export default function TaskItem ({task}: TaskItemProps) {
   );
 
   const [taslTitle, setTaskTitle] = React.useState(task.title || '')
-  const { updateTask } = useTask()
+  const { updateTask, UpdateTaskStatus, deleteTask } = useTask()
 
   function handleEditTask () {
     setIsEdidting(true)
   }
 
   function handleExitEditTask() {
+      if(task.state === TaskState.Creating) {
+        deleteTask(task.id)
+      }
     setIsEdidting(false)
   }
 
@@ -45,14 +48,23 @@ export default function TaskItem ({task}: TaskItemProps) {
     setIsEdidting(false)
   }
 
+  function handleChangeTaskStatus(e: React.ChangeEvent<HTMLInputElement>) {
+    const checked = e.target.checked
+
+    UpdateTaskStatus(task.id, checked)
+  }
+
+  function handleDeleteTask() {
+    deleteTask(task.id)
+  }
 
   return <form onSubmit={handleSaveTask}> 
   <Card size="md" className="flex items-center gap-4">
     {!isEditing ? 
     <>
      <InputCheackBox 
-      value={task?.concluded?.toString()} 
       checked={task?.concluded} 
+      onChange={handleChangeTaskStatus}
      />
     <Text className={cx("flex-1", {
       "line-through" : task?.concluded, 
@@ -65,6 +77,7 @@ export default function TaskItem ({task}: TaskItemProps) {
         type="button"
         icon={TrashIcon} 
         variant="tertiary"
+        onClick={handleDeleteTask}
       />
       <ButtonIcon 
         type="button"
