@@ -1,13 +1,14 @@
 import Container from "../components/conteiner";
-import TaskItem from "../coreComponentes/taskItem";
+
+import TaskList from "../coreComponentes/tasksList";
 import TasksSummary from "../coreComponentes/tasksSummary";
 
 
 export default function PageHome() {
-  return<Container as="article" className="flex flex-col gap-2.5">
+  return<Container as="article" className="space-y-3">
   <header className="flex items-center justify-between">
     <TasksSummary />
   </header>
-  <TaskItem />
+  <TaskList />
   </Container>
 }
