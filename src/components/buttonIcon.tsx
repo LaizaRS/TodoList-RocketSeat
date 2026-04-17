@@ -2,30 +2,37 @@ import type React from "react";
 import Icon from "./icon";
 import { cva, type VariantProps } from "class-variance-authority";
 import Skeleton from "./skeleton";
+import SpinnerIcon from "../assets/icons/Spinner.svg?react"
 
-export const buttonIconVariants = cva(`
+export const buttonIconVariants = cva(
+  `
   inline-flex items-center justify-center cursor-pointer transition group
-  `, {
-    variants: {
-      variant: {
-        none: "",
-        primary: "bg-green-300 hover:bg-green-500",
-        secondary: "bg-gray-200 hover:bg-pink-500",
-        tertiary: "bg-transparent hover:bg-gray-200"
+  `, 
+    {
+      variants: {
+        variant: {
+          none: "",
+          primary: "bg-green-300 hover:bg-green-500",
+          secondary: "bg-gray-200 hover:bg-pink-500",
+          tertiary: "bg-transparent hover:bg-gray-200"
+        },
+        size: {
+          sm:"w-6 h-6 p-1 rounded"
+        },
+        disabled: {
+          true: "opacity-50 pointer-events-none"
+        },
+        handling: {
+          true: "pointer-events-none"
+        }
       },
-      size: {
-        sm:"w-6 h-6 p-1 rounded"
-      },
-      disabled: {
-        true: "opacity-50 pointer-events-none"
+      defaultVariants: {
+        variant: "primary",
+        size: "sm",
+        disabled: false,
+        handling: false
       }
-    },
-    defaultVariants: {
-      variant: "primary",
-      size: "sm",
-      disabled: false
-    }
-})
+  })
 
 export const buttonIconIconVariants = cva(`transition`, {
   variants: {
@@ -45,12 +52,12 @@ export const buttonIconIconVariants = cva(`transition`, {
 })
 
 interface ButtonIconProps 
-
-extends VariantProps<typeof buttonIconVariants>, 
-Omit<React.ComponentProps<"button">, "size" | "disabled"> {
-  icon: React.ComponentProps<typeof Icon>["svg"];
-  loading?: boolean
-}
+  extends VariantProps<typeof buttonIconVariants>, 
+  Omit<React.ComponentProps<"button">, "size" | "disabled"> {
+    icon: React.ComponentProps<typeof Icon>["svg"];
+    loading?: boolean
+    handling?: boolean
+  }
 
 export default function ButtonIcon ({
   variant,
@@ -59,6 +66,7 @@ export default function ButtonIcon ({
   className,
   icon: IconComponent,
   loading,
+  handling,
   ...props
 }: ButtonIconProps) {
 if(loading) {
@@ -73,10 +81,18 @@ if(loading) {
 }
 
   return <button className={buttonIconVariants({
-    variant, size, disabled, className
+    variant, 
+    size, 
+    disabled, 
+    className, 
+    handling
   })}
     {...props}
   >
-    <Icon svg={IconComponent} className={ buttonIconIconVariants({variant, size})} />
+    <Icon 
+      svg={handling ? SpinnerIcon : IconComponent} 
+      animate={handling}
+      className={ buttonIconIconVariants({variant, size})} 
+    />
   </button>
 }
