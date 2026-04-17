@@ -24,7 +24,7 @@ export default function Text({
   as = "span", 
   className, 
   children, 
-  variant, // 👈 faltava isso
+  variant,
   ...props
 }: TextProps) {
   return React.createElement(
